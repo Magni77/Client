@@ -27,30 +27,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar
-      app
-      :clipped-left="clipped"
-    >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <!--<v-btn icon @click.stop="clipped = !clipped">-->
-      <!--<v-icon>web</v-icon>-->
-      <!--</v-btn>-->
-      <!--<v-btn icon @click.stop="fixed = !fixed">-->
-      <!--<v-icon>web</v-icon>-->
-      <!--</v-btn>-->
-      <!--<v-btn icon @click.stop="rightDrawer = !rightDrawer">-->
-        <!--<v-icon>menu</v-icon>-->
-      <!--</v-btn>  -->
-      <v-btn v-if="user" flat>{{ user.email }}</v-btn>
-      <v-avatar color="indigo">
-        <v-icon dark>account_circle</v-icon>
-      </v-avatar>
-    </v-toolbar>
+    <toolbar></toolbar>
 
     <v-content>
       <router-view/>
@@ -66,10 +43,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import Toolbar from "./Toolbar";
 
 export default {
   name: 'Index',
-  data() {
+    components: {Toolbar},
+    data() {
     return {
       clipped: true,
       drawer: true,
@@ -81,14 +60,16 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Some shit',
     };
   },
   computed: {
     ...mapGetters([
       'user',
-    ]),
+    ])
   },
+  methods: {
+
+  }
 
 };
 </script>

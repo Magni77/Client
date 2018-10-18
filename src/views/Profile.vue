@@ -3,8 +3,10 @@
     <v-container>
       <v-layout row wrap>
         <v-flex xs12>
-            <post-input></post-input>
-            <post-list></post-list>
+          <post-input
+            v-show="$store.getters.user.id === $route.params.user_id">
+          </post-input>
+          <post-list></post-list>
         </v-flex>
       </v-layout>
     </v-container>
@@ -18,6 +20,11 @@ import PostList from '../components/PostList.vue';
 export default {
   name: 'ProfilePage',
   components: { PostInput, PostList },
+  computed: {
+    user () {
+      return this.$store.getters.user;
+    }
+  }
 
 };
 

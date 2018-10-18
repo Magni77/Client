@@ -37,11 +37,24 @@ export const store = new Vuex.Store({
     initPosts ({ commit }) {
       commit('setPostsState', posts)
     },
-    authUser (data){
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      http.defaults.headers.common['Authorization'] = 'jwt ' + data.token
+    createPost({commit}, postData) {
+      http.post('posts', postData)
+        .then(response => {
+          commit('createPost', response.data);
+        })
+        .catch(e => {
+          alert(e)
+        })
     },
+    // searchProfile ({commit}, searchData) {
+    //   return new Promise((resolve, reject) => {
+    //       http.get('users?username=' + searchData)
+    //           .then(response => {
+    //
+    //           })
+    //
+    //   })
+    // },
     register: ({ commit }, userData) => {
       return new Promise((resolve, reject) => {
         http.post('register', userData)

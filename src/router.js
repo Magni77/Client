@@ -22,6 +22,7 @@ export const router = new Router({
         },
         {
           path: 'profile/:user_id',
+          name: 'profile',
           component: Profile
         }
       ],
