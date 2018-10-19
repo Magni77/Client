@@ -9,6 +9,5 @@ export const http = axios.create({
 });
 
 const token = localStorage.getItem('token');
-if (token)
-  http.defaults.headers.common['Authorization'] = 'jwt ' + token;
+if (token) { http.defaults.headers.common.Authorization = `jwt ${token}`; }
 

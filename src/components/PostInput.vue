@@ -46,9 +46,9 @@ export default {
   },
   methods: {
     sendMessage() {
-        this.$store.dispatch('createPost', {text: this.message});
-        this.resetIcon();
-        this.clearMessage();
+      this.$store.dispatch('createPost', { text: this.message });
+      this.resetIcon();
+      this.clearMessage();
     },
     clearMessage() {
       this.message = '';

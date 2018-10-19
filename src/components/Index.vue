@@ -43,12 +43,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Toolbar from "./Toolbar";
+import Toolbar from './Toolbar.vue';
 
 export default {
   name: 'Index',
-    components: {Toolbar},
-    data() {
+  components: { Toolbar },
+  data() {
     return {
       clipped: true,
       drawer: true,
@@ -65,11 +65,9 @@ export default {
   computed: {
     ...mapGetters([
       'user',
-    ])
+    ]),
   },
-  methods: {
-
-  }
+  methods: {},
 
 };
 </script>

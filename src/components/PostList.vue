@@ -9,30 +9,30 @@
 </template>
 
 <script>
-  import PostContent from '../components/PostContent.vue';
+import PostContent from '../components/PostContent.vue';
 
-  export default {
-    name: 'PostList',
-    components: { PostContent },
-    computed: {
-      items () {
-        return this.$store.getters.posts;
-      },
-      binding () {
-        const binding = {};
-        if (this.$vuetify.breakpoint.mdAndUp) binding.column = true;
+export default {
+  name: 'PostList',
+  components: { PostContent },
+  computed: {
+    items() {
+      return this.$store.getters.posts;
+    },
+    binding() {
+      const binding = {};
+      if (this.$vuetify.breakpoint.mdAndUp) binding.column = true;
 
-        return binding
-      }
+      return binding;
     },
-    watch: {
-     '$route' (to, from) {
-         this.$store.dispatch('getProfilePosts', to.params.user_id);
-      }
+  },
+  watch: {
+    $route(to) {
+      this.$store.dispatch('getProfilePosts', to.params.user_id);
     },
-    created() {
-      this.$store.dispatch('getProfilePosts', this.$route.params.user_id);
-    },
+  },
+  created() {
+    this.$store.dispatch('getProfilePosts', this.$route.params.user_id);
+  },
 
-  }
+};
 </script>

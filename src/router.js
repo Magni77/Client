@@ -5,7 +5,7 @@ import LoginPage from './views/LoginPage.vue';
 import RegisterPage from './views/RegisterPage.vue';
 import Profile from './views/Profile.vue';
 import Index from './components/Index.vue';
-import { store } from './store'
+import { store } from './store';
 
 Vue.use(Router);
 
@@ -23,8 +23,8 @@ export const router = new Router({
         {
           path: 'profile/:user_id',
           name: 'profile',
-          component: Profile
-        }
+          component: Profile,
+        },
       ],
     },
     {
@@ -42,7 +42,7 @@ export const router = new Router({
 });
 
 
-router.beforeEach((to, from, next) =>  {
+router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/login', '/register'];
   const authRequired = !publicPages.includes(to.path);
@@ -52,5 +52,5 @@ router.beforeEach((to, from, next) =>  {
     return next('/login');
   }
 
-  next();
+  return next();
 });
