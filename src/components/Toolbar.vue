@@ -80,11 +80,12 @@ export default {
   },
   watch: {
     search(val) {
-      // val && val !== this.select &&
-      this.querySelections(val);
+      val && val !== this.select && this.querySelections(val);
     },
     select(val) {
-      this.redirectToProfile(val.user);
+      if (typeof (val) === 'object'){
+        this.redirectToProfile(val.user);
+      }
     },
   },
   computed: {
@@ -105,7 +106,6 @@ export default {
       this.loading = true;
       http.get(`users?username=${v}`)
         .then((response) => {
-          console.log(response.data);
           this.items = response.data.map(item => item);
           this.loading = false;
         });

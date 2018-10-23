@@ -7,7 +7,8 @@
     clearable
     label="What do you think?"
     type="text"
-    @click:append-outer="sendMessage"
+    @keyup.enter.native="publishPost"
+    @click:append-outer="publishPost"
     @click:prepend="changeIcon"
     @click:clear="clearMessage"
   >
@@ -15,7 +16,7 @@
       slot="append-outer"
       style="top: -12px"
       offset-y
-      @click="sendMessage"
+      @click="publishPost"
       >
       <v-icon left>send</v-icon>
       Publish!
@@ -45,8 +46,9 @@ export default {
     },
   },
   methods: {
-    sendMessage() {
-      this.$store.dispatch('createPost', { text: this.message });
+    publishPost() {
+      if (this.message)
+        this.$store.dispatch('createPost', { text: this.message });
       this.resetIcon();
       this.clearMessage();
     },

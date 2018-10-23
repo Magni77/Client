@@ -30,8 +30,7 @@ export const store = new Vuex.Store({
         .then((response) => {
           commit('setPostsState', response.data);
         })
-        .catch((e) => {
-          console.log(e);
+        .catch(() => {
         });
     },
     initPosts({ commit }) {
@@ -42,19 +41,9 @@ export const store = new Vuex.Store({
         .then((response) => {
           commit('createPost', response.data);
         })
-        .catch((e) => {
-          alert(e);
+        .catch(() => {
         });
     },
-    // searchProfile ({commit}, searchData) {
-    //   return new Promise((resolve, reject) => {
-    //       http.get('users?username=' + searchData)
-    //           .then(response => {
-    //
-    //           })
-    //
-    //   })
-    // },
     register: ({ commit }, userData) => new Promise((resolve, reject) => {
       http.post('register', userData)
         .then((response) => {
@@ -80,7 +69,6 @@ export const store = new Vuex.Store({
           resolve(response);
         })
         .catch((e) => {
-          console.log(e);
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           reject(e);
@@ -88,9 +76,12 @@ export const store = new Vuex.Store({
     }),
   },
   getters: {
-    user: state =>
-      state.user,
-    posts: state => state.posts,
+    user: state => state.user,
+    posts: state => state.posts.sort((a, b) => new Date(b.created) - new Date(a.created)),
   },
 
 });
+
+export default {
+  store,
+};
