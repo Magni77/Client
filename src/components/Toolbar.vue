@@ -3,7 +3,7 @@
     app
     :clipped-left="true"
   >
-    <v-toolbar-title v-text="title"></v-toolbar-title>
+    <v-toolbar-title  @click="redirectToHomePage" v-text="title"></v-toolbar-title>
     <v-spacer></v-spacer>
 
     <v-autocomplete
@@ -53,10 +53,12 @@
     >
       {{ user.email }}
     </v-btn>
-
-    <v-avatar color="indigo">
+    <v-avatar color="indigo" size="32px">
       <v-icon dark>account_circle</v-icon>
     </v-avatar>
+    <v-btn icon large @click="logout">
+      <v-icon>exit_to_app</v-icon>
+    </v-btn>
   </v-toolbar>
 
 </template>
@@ -70,7 +72,7 @@ export default {
   name: 'Toolbar',
   data() {
     return {
-      title: 'Some shit',
+      title: "Engineer'sPlace",
       searchText: '',
       loading: false,
       items: [],
@@ -110,10 +112,21 @@ export default {
           this.loading = false;
         });
     },
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.push({ name: 'login' });
+    },
+    redirectToHomePage() {
+      this.$router.push({ name: 'home' });
+    },
   },
 };
 </script>
 
 <style scoped>
-
+  .v-toolbar__title:hover  {
+    /*background: #cecece;*/
+    font-weight: bolder;
+    cursor: pointer;
+  }
 </style>

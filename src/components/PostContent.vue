@@ -30,7 +30,7 @@ export default {
     likePost() {
       http.put(`posts/${this.post.id}/like`)
         .then((response) => {
-          this.post = response.data;
+          this.post.likesAmount = response.data.likesAmount;
         });
     },
   },

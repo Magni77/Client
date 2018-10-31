@@ -109,8 +109,11 @@ export default {
           first_name: this.user.fname,
           last_name: this.user.lname,
         };
-        this.$store.dispatch('register', userData);
-        this.$router.push({ name: 'login' });
+        this.$store.dispatch('register', userData)
+          .then(() => {
+            this.$router.push({ name: 'login' });
+          })
+          .catch();
       }
     },
   },

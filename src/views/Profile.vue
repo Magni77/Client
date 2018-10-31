@@ -25,7 +25,6 @@ export default {
       return this.$store.getters.user;
     },
   },
-
 };
 
 </script>

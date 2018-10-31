@@ -11,17 +11,28 @@ export const store = new Vuex.Store({
     user: loggedUser || null,
     token: null,
     posts: [],
+    profile: null,
   },
   mutations: {
     authUser: (state, data) => {
       state.user = data.user;
       state.token = data.token;
     },
+    logOut(state) {
+      state.user = null;
+      state.token = null;
+    },
     createPost(state, newPost) {
       state.posts.push(newPost);
     },
     setPostsState(state, postsData) {
       state.posts = postsData;
+    },
+    setProfileState(state, profileData) {
+      state.profile = profileData;
+    },
+    setEmptyProfile(state) {
+      state.profile = {};
     },
   },
   actions: {
@@ -42,6 +53,15 @@ export const store = new Vuex.Store({
           commit('createPost', response.data);
         })
         .catch(() => {
+        });
+    },
+    getProfile({ commit }, userID) {
+      http.get(`users/${userID}`)
+        .then((response) => {
+          commit('setProfileState', response.data);
+        })
+        .catch(() => {
+          commit('setEmptyProfile');
         });
     },
     register: ({ commit }, userData) => new Promise((resolve, reject) => {
@@ -74,10 +94,16 @@ export const store = new Vuex.Store({
           reject(e);
         });
     }),
+    logout({ commit }) {
+      commit('logOut');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    },
   },
   getters: {
     user: state => state.user,
     posts: state => state.posts.sort((a, b) => new Date(b.created) - new Date(a.created)),
+    profile: state => state.profile,
   },
 
 });
